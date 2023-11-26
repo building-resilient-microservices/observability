@@ -1,0 +1,8 @@
+[
+    {
+        "name": "fact-db",
+        "listen": "[::]:3307",
+        "upstream": "host.docker.internal:3306",
+        "enabled": true
+    }
+]

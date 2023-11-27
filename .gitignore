@@ -255,3 +255,6 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,java,eclipse,intellij,gradle,sonar
+
+#Grafana tempo data files
+/tempo-data/

@@ -1,28 +1,31 @@
 # Microservice Observability Demo
 Demo setup for Spring Boot 3 with Prometheus, Grafana, Loki, and Tempo to demonstrate Observability use-cases.
 
-## Start dependencies
+## Start infrastructure dependencies
 
 ```shell
 docker compose -p observability up 
 ```
 
-## Stop dependencies
+## Stop infrastructure dependencies
 
 ```shell
 docker compose -p observability down
 ```
 
-## Stop dependencies and purge data
+## Stop infrastructure dependencies and purge data
 
 ```shell
 docker compose -p observability down --volumes 
 ```
 
-## Start the app
+## Start the demos
 
 ```shell
-./mvnw spring-boot:run
+./mvnw  spring-boot:run -pl kafka-producer-demo
+```
+```shell
+./mvnw  spring-boot:run -pl kafka-consumer-demo
 ```
 
 ## Local Infrastrucure Services

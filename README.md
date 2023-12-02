@@ -20,6 +20,8 @@ docker compose -p observability down --volumes
 ```
 
 ## Start the demos
+> **Warning** 
+You probably need to turn off your VPN to avoid kafka network issues.
 
 ```shell
 ./mvnw spring-boot:run -pl kafka-producer-demo
@@ -35,3 +37,4 @@ docker compose -p observability down --volumes
 - ToxiProxy UI (failure injection): http://localhost:8484
 - MailDev (emails for alerts): http://localhost:3001
 - Adminer (DB Admin UI): http://localhost:8888 (credentials: `root:password`)
+- Kafka Drop: http://localhost:9000

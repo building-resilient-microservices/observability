@@ -1,9 +1,9 @@
-package com.example.messaging.config;
+package com.example.messaging;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,19 +12,18 @@ import java.util.Map;
 public class KafkaConfig {
 
     @Bean
-    public ConsumerFactory<Object, Object> consumerFactory() {
-
+    public ProducerFactory<Object, Object> producerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put("bootstrap.servers", "localhost:9092");
-        props.put("key.deserializer", org.apache.kafka.common.serialization.IntegerDeserializer.class);
-        props.put("value.deserializer", org.apache.kafka.common.serialization.StringDeserializer.class);
+        props.put("key.serializer", org.apache.kafka.common.serialization.IntegerSerializer.class);
+        props.put("value.serializer", org.apache.kafka.common.serialization.StringSerializer.class);
 
         // for confluent cloud, you need to add the following properties:
         // props.put("security.protocol", "SASL_SSL");
         // props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='CQBL26VT2O55WDK3' password='6x5RxuX12lc6+xiOyLSBqwzRX859g7KvCvcoM2iT04vCpdvvSM1uy2sL3higjQv2';");
         // props.put("sasl.mechanism", "PLAIN");
 
-        return new DefaultKafkaConsumerFactory<>(props);
+        return new DefaultKafkaProducerFactory<>(props);
     }
 
 }

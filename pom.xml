@@ -22,6 +22,7 @@
 
     <modules>
         <module>kafka-consumer-demo</module>
+        <module>kafka-producer-demo</module>
     </modules>
 
     <dependencies>

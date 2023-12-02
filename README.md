@@ -22,10 +22,10 @@ docker compose -p observability down --volumes
 ## Start the demos
 
 ```shell
-./mvnw  spring-boot:run -pl kafka-producer-demo
+./mvnw spring-boot:run -pl kafka-producer-demo
 ```
 ```shell
-./mvnw  spring-boot:run -pl kafka-consumer-demo
+./mvnw spring-boot:run -pl kafka-consumer-demo
 ```
 
 ## Local Infrastrucure Services

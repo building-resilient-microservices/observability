@@ -20,7 +20,7 @@ docker compose -p observability down --volumes
 ```
 
 ## Start the demos
-> :warning:
+:warning:
 You probably need to turn off your VPN to avoid kafka network issues.
 
 ```shell

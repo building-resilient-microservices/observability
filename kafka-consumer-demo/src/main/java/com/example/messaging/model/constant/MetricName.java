@@ -2,7 +2,6 @@ package com.example.messaging.model.constant;
 
 public enum MetricName {
 
-    SYNC_TIME,
-    TOXIC_SLEEP
+    SYNC_TIME
 
 }

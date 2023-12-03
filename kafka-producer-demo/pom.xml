@@ -9,9 +9,6 @@
     </parent>
 
     <artifactId>kafka-producer-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>kafka-producer-demo</name>
-    <description>kafka-producer-demo</description>
 
     <dependencies>
         <dependency>
@@ -24,6 +21,10 @@
                     <artifactId>snakeyaml</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
     </dependencies>
 

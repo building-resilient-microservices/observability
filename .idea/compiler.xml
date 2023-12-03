@@ -11,9 +11,13 @@
         <module name="kafka-producer-demo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kafka-common-demo" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="kafka-common-demo" options="" />
       <module name="kafka-consumer-demo" options="-parameters" />
       <module name="kafka-producer-demo" options="-parameters" />
     </option>

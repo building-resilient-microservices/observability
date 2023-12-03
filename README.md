@@ -1,4 +1,4 @@
-# Microservice Observability Demo
+# Microservice Observability Demo 	[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/wandi)
 Demo setup for Spring Boot 3 with Prometheus, Grafana, Loki, and Tempo to demonstrate Observability use-cases.
 
 ## Start infrastructure dependencies

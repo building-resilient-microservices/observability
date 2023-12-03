@@ -24,7 +24,7 @@ public class FactService {
 
     public FactDTO read(Integer factId) {
         return FactDTO.of(factRepository.findById(factId)
-                .orElseThrow(() -> new FactNotFoundException(factId.toString())));
+            .orElseThrow(() -> new FactNotFoundException(factId.toString())));
     }
 
     public void delete(Integer factId) {

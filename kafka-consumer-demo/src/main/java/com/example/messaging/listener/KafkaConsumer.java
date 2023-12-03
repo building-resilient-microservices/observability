@@ -1,5 +1,6 @@
 package com.example.messaging.listener;
 
+import com.example.messaging.model.Fact;
 import com.example.messaging.model.FactDTO;
 import com.example.messaging.model.constant.MetricName;
 import com.example.messaging.service.FactService;
@@ -33,12 +34,12 @@ public class KafkaConsumer {
     // https://micrometer.io/docs/concepts#_manually_incrementing_or_decrementing_a_gauge
     private static final Map<String, AtomicLong> gauges = new ConcurrentHashMap<>();
 
-    @KafkaListener(topics = "topic_0", groupId = "group_0")
-    public void consume(@Payload String message,
+    @KafkaListener(id="fact", topics = "topic_0")
+    public void consume(@Payload FactDTO fact,
                         @Header(KafkaHeaders.RECEIVED_KEY) Integer id,
                         @Header(KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp) {
 
-        var fact = factService.create(new FactDTO(id, message));
+        factService.create(fact);
 
         var syncTime = new AtomicLong((now().toEpochMilli() / 1_000) - timestamp);
         gauges.put(MetricName.SYNC_TIME.toString(), syncTime);

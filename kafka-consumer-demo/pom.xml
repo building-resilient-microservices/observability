@@ -9,9 +9,6 @@
     </parent>
 
     <artifactId>kafka-consumer-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>kafka-consumer-demo</name>
-    <description>kafka-consumer-demo</description>
 
     <dependencies>
         <dependency>

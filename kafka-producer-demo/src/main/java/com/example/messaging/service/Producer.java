@@ -1,13 +1,16 @@
-package com.example.messaging;
+package com.example.messaging.service;
 
+import com.example.messaging.service.FakeMessage;
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Log
-@Component
+@Slf4j
+@Service
+@Observed
 @RequiredArgsConstructor
 public class Producer {
 

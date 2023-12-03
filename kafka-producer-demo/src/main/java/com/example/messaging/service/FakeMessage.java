@@ -1,4 +1,4 @@
-package com.example.messaging;
+package com.example.messaging.service;
 
 import com.github.javafaker.Faker;
 import org.apache.kafka.clients.producer.ProducerRecord;

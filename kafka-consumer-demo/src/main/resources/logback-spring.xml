@@ -28,9 +28,9 @@
 
     <!-- Just an example of how to use the splunk appender, you can create a free clout trial account in splunk.com -->
     <appender name="SPLUNK"	class="com.splunk.logging.HttpEventCollectorLogbackAppender">
-        <url>https://inputs.prd-p-c0vfb.splunkcloud.com:8088</url>
+        <url>https://inputs.SPLUNK-CLOUD-HOST-HERE.splunkcloud.com:8088</url>
         <host>${HOSTNAME}</host>
-        <token>1326161f-61ee-4c3b-b88a-7946a0ac6c65</token>
+        <token>SPLUNK-CLOUD-HOST-HERE</token>
         <source>${spring.application_name}</source>
         <sourcetype>${spring.profiles.active}</sourcetype>
         <disableCertificateValidation>true</disableCertificateValidation>

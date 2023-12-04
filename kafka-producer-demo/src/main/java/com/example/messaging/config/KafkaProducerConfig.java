@@ -21,8 +21,8 @@ public class KafkaProducerConfig {
     @Bean
     public NewTopic factTopic() {
         return TopicBuilder.name("topic_0")
-            .partitions(0).
-            replicas(0)
+            .partitions(0)
+            .replicas(0)
             .build();
     }
 

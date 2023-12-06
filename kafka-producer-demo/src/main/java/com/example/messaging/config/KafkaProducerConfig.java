@@ -2,6 +2,7 @@ package com.example.messaging.config;
 
 import com.example.messaging.model.FactDTO;
 import io.micrometer.common.KeyValues;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
@@ -9,14 +10,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import io.micrometer.tracing.Tracer;
 import org.springframework.kafka.support.micrometer.KafkaRecordSenderContext;
 import org.springframework.kafka.support.micrometer.KafkaTemplateObservationConvention;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Configuration
+@RequiredArgsConstructor
 public class KafkaProducerConfig {
+
+    private final Tracer tracer;
 
     @Bean
     public NewTopic factTopic() {
@@ -35,7 +37,7 @@ public class KafkaProducerConfig {
             @Override
             public KeyValues getLowCardinalityKeyValues(@NotNull KafkaRecordSenderContext context) {
                 return KeyValues.of("topic", context.getDestination(),
-                    "id", String.valueOf(context.getRecord().key()));
+                    "factId", String.valueOf(context.getRecord().key()));
             }
         });
         return t;

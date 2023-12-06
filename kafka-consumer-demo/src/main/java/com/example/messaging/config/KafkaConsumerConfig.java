@@ -1,6 +1,10 @@
 package com.example.messaging.config;
 
+import com.example.messaging.model.FactDTO;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -13,7 +17,11 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
+@RequiredArgsConstructor
 public class KafkaConsumerConfig {
+
+
+    private final  ConcurrentKafkaListenerContainerFactory<Integer, FactDTO> concurrentKafkaListenerContainerFactory;
 
     @Bean
     public NewTopic factTopic() {
@@ -23,13 +31,9 @@ public class KafkaConsumerConfig {
             .build();
     }
 
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> listenerFactory(ConsumerFactory<String, String> consumerFactory) {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory =
-            new ConcurrentKafkaListenerContainerFactory<>();
-        factory.getContainerProperties().setObservationEnabled(true);
-        factory.setConsumerFactory(consumerFactory);
-        return factory;
+    @PostConstruct
+    void setup() {
+        this.concurrentKafkaListenerContainerFactory.getContainerProperties().setObservationEnabled(true);
     }
 
 }

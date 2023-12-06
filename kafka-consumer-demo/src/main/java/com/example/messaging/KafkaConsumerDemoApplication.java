@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
-public class    KafkaConsumerDemoApplication {
+public class KafkaConsumerDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(KafkaConsumerDemoApplication.class, args);

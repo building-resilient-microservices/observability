@@ -1,12 +1,12 @@
 package com.example.messaging.listener;
 
-import com.example.messaging.model.Fact;
 import com.example.messaging.model.FactDTO;
 import com.example.messaging.model.constant.MetricName;
 import com.example.messaging.service.FactService;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.observation.annotation.Observed;
+import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,12 +15,11 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import java.text.MessageFormat;
+import java.time.Instant;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-
-import static java.time.Instant.*;
 
 @Slf4j
 @Component
@@ -29,6 +28,7 @@ import static java.time.Instant.*;
 public class KafkaConsumer {
 
     private final FactService factService;
+    private final Tracer tracer;
 
     // It is your responsibility to hold a strong reference to the state object that you are measuring (item 10.3)
     // https://micrometer.io/docs/concepts#_manually_incrementing_or_decrementing_a_gauge
@@ -41,15 +41,18 @@ public class KafkaConsumer {
 
         factService.create(fact);
 
-        var syncTime = new AtomicLong((now().toEpochMilli() / 1_000) - timestamp);
+        var syncTime = new AtomicLong((Instant.now().toEpochMilli()) - timestamp);
         gauges.put(MetricName.SYNC_TIME.toString(), syncTime);
 
-        //Since we're in an observation scope - this log line will contain tracing MDC entries ...
-        log.info(MessageFormat.format("{0} (metadata: full sync after {1,number,#}ms)", fact, syncTime));
+        //just and example how to get traceId from context
+        var traceId = Objects.requireNonNull(tracer.currentSpan()).context().traceId();
+        log.info("Consumer received message with traceId={} and timestamp={}, record={} (metadata: full sync after {}ms, baggage size {})", traceId, timestamp, fact, syncTime, tracer.getAllBaggage().size());
+        tracer.getAllBaggage().forEach((k, v) -> log.info("With traceId={} - Baggage: {}={}", traceId, k, v));
 
         Gauge.builder(MetricName.SYNC_TIME.toString(), () -> gauges.get(MetricName.SYNC_TIME.toString())).register(Metrics.globalRegistry);
-        log.trace("Gauge value in globalRegistry is {}", Metrics.globalRegistry.get(MetricName.SYNC_TIME.toString()).gauge().value());
-
+        if (log.isTraceEnabled()) {
+            log.trace("Gauge value in globalRegistry is {}", Metrics.globalRegistry.get(MetricName.SYNC_TIME.toString()).gauge().value());
+        }
     }
 
 }

@@ -30,16 +30,16 @@ public class Producer {
 
         var faker = Faker.instance();
         var fact = new FactDTO(faker.random().nextInt(1, 1_000_000), faker.chuckNorris().fact());
-        var timestamp = Instant.now().getEpochSecond();
-        var record = new ProducerRecord<>(factTopic.name(), factTopic.numPartitions(), timestamp, fact.id(), fact);
+        var timestamp = Instant.now().getEpochSecond() * 1_000;
+        var message = new ProducerRecord<>(factTopic.name(), factTopic.numPartitions(), timestamp, fact.id(), fact);
 
-        var futureResult = template.send(record);
 
         //just and example how to get traceId from context
         var traceId = Objects.requireNonNull(tracer.currentSpan()).context().traceId();
-        futureResult.whenComplete((sr, ex) ->
+        template.send(message).whenComplete((sr, ex) ->
             log.info("Producer sent message with traceId={} and timestamp={}, record={}",
                 traceId, timestamp, sr.getProducerRecord().value()));
+
     }
 
 }

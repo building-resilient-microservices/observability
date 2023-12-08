@@ -1,1 +1,2 @@
-CREATE DATABASE `fact-db`;
+CREATE
+DATABASE `fact-db`;

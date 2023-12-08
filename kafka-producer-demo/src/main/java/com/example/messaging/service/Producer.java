@@ -4,7 +4,6 @@ import com.example.messaging.model.FactDTO;
 import com.github.javafaker.Faker;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
-import io.micrometer.observation.annotation.Observed;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -12,13 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -42,7 +39,7 @@ public class Producer {
             var traceId = Objects.requireNonNull(tracer.currentSpan()).context().traceId();
             return kafkaTemplate.send(message).whenComplete((sr, ex) ->
                 log.info("Producer sent message with traceId={} and timestamp={}, record={})",
-                traceId, timestamp, sr.getProducerRecord().value())).get();
+                    traceId, timestamp, sr.getProducerRecord().value())).get();
         });
 
     }

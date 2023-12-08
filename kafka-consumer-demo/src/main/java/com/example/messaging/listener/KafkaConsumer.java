@@ -7,7 +7,6 @@ import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
-import io.micrometer.observation.annotation.Observed;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,20 +27,20 @@ import java.util.concurrent.atomic.AtomicLong;
 @RequiredArgsConstructor
 public class KafkaConsumer {
 
+    // It is your responsibility to hold a strong reference to the state object that you are measuring (item 10.3)
+    // https://micrometer.io/docs/concepts#_manually_incrementing_or_decrementing_a_gauge
+    private static final Map<String, AtomicLong> gauges = new ConcurrentHashMap<>();
     private final FactService factService;
     private final Tracer tracer;
     private final ObservationRegistry observationRegistry;
 
-    // It is your responsibility to hold a strong reference to the state object that you are measuring (item 10.3)
-    // https://micrometer.io/docs/concepts#_manually_incrementing_or_decrementing_a_gauge
-    private static final Map<String, AtomicLong> gauges = new ConcurrentHashMap<>();
-
-    @KafkaListener(groupId="group_0", topics = "topic_0")
+    @KafkaListener(groupId = "group_0", topics = "topic_0")
     public void onMessage(@Payload FactDTO fact,
-                        @Header(KafkaHeaders.RECEIVED_KEY) Integer id,
-                        @Header(KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp) {
+                          @Header(KafkaHeaders.RECEIVED_KEY) Integer id,
+                          @Header(KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp) {
         Observation.createNotStarted("on-message", this.observationRegistry).observe(() -> consume(fact, timestamp));
     }
+
     private void consume(FactDTO fact, Long timestamp) {
 
         factService.create(fact);

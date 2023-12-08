@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <springProperty scope="context" name="appName" source="spring.application.name"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -27,7 +27,7 @@
     </appender>
 
     <!-- Just an example of how to use the splunk appender, you can create a free clout trial account in splunk.com -->
-    <appender name="SPLUNK"	class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+    <appender name="SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
         <url>https://inputs.SPLUNK-CLOUD-HOST-HERE.splunkcloud.com:8088</url>
         <host>${HOSTNAME}</host>
         <token>SPLUNK-CLOUD-HOST-HERE</token>
@@ -42,7 +42,7 @@
 
     <root level="INFO">
         <!-- if your are not using splunk, comment out the line below -->
-        <appender-ref ref="SPLUNK" />
+        <appender-ref ref="SPLUNK"/>
         <appender-ref ref="LOKI"/>
     </root>
 

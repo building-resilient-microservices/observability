@@ -1,7 +1,11 @@
 package com.example.messaging.model;
 
-import jakarta.validation.constraints.*;
-public record FactDTO (
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record FactDTO(
 
     @NotNull(message = "You must provide a valid fact ID")
     @Min(value = 1, message = "You must provide at least one 1")

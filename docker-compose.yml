@@ -16,7 +16,7 @@ services:
         extra_hosts: [ 'host.docker.internal:host-gateway' ]
         restart: always
         volumes:
-            -   /var/run/docker.sock:/var/run/docker.sock
+            - /var/run/docker.sock:/var/run/docker.sock
         ports:
             - 9092:9092
         environment:
@@ -100,7 +100,7 @@ services:
 
     tempo:
         image: grafana/tempo
-        extra_hosts: ['host.docker.internal:host-gateway']
+        extra_hosts: [ 'host.docker.internal:host-gateway' ]
         command: [ "-config.file=/etc/tempo.yaml" ]
         volumes:
             - ./docker/tempo/tempo-local.yaml:/etc/tempo.yaml:ro
@@ -111,7 +111,7 @@ services:
 
     loki:
         image: grafana/loki
-        extra_hosts: ['host.docker.internal:host-gateway']
+        extra_hosts: [ 'host.docker.internal:host-gateway' ]
         command: [ "-config.file=/etc/loki/local-config.yaml" ]
         ports:
             - "3100:3100"                                   # loki needs to be exposed so it receives logs
@@ -123,7 +123,7 @@ services:
 
     prometheus:
         image: prom/prometheus
-        extra_hosts: ['host.docker.internal:host-gateway']
+        extra_hosts: [ 'host.docker.internal:host-gateway' ]
         command:
             - --enable-feature=exemplar-storage
             - --web.enable-remote-write-receiver
@@ -135,7 +135,7 @@ services:
 
     grafana:
         image: grafana/grafana
-        extra_hosts: ['host.docker.internal:host-gateway']
+        extra_hosts: [ 'host.docker.internal:host-gateway' ]
         volumes:
             - ./docker/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
             - ./docker/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro

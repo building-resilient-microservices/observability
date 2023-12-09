@@ -6,7 +6,11 @@ scrape_configs:
     -   job_name: 'prometheus'
         static_configs:
             -   targets: [ 'host.docker.internal:9090' ]
-    -   job_name: 'apps'
+    -   job_name: 'kafka-producer-demo'
         metrics_path: '/actuator/prometheus'
         static_configs:
-            -   targets: [ 'host.docker.internal:8080','host.docker.internal:8081' ]
+            -   targets: [ 'host.docker.internal:8071' ]
+    -   job_name: 'kafka-consumer-demo'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+            -   targets: [ 'host.docker.internal:8081' ]

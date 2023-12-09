@@ -17,6 +17,7 @@ public class ObservationConfig {
         return new ObservedAspect(registry);
     }
 
+    // Log observation events to the console (change log level to DEBUG to see them)
     @Bean
     public ObservationTextPublisher observationTextPublisher() {
         return new ObservationTextPublisher(log::debug);

@@ -17,7 +17,7 @@
         </http>
         <format>
             <label>
-                <pattern>service_name=${appName},host=${HOSTNAME},traceID=%X{traceId:-NONE},level=%level</pattern>
+                <pattern>application=${appName},host=${HOSTNAME},traceID=%X{traceId:-NONE},level=%level</pattern>
             </label>
             <message>
                 <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -41,8 +41,8 @@
     </appender>
 
     <root level="INFO">
-        <!-- if your are not using splunk, comment out the line below -->
-        <appender-ref ref="SPLUNK"/>
+        <!-- if your are using splunk, just add this appender-ref -->
+        <!-- <appender-ref ref="SPLUNK"/> -->
         <appender-ref ref="LOKI"/>
     </root>
 

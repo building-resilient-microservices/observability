@@ -22,9 +22,6 @@ docker compose -p observability down --volumes
 
 ## Start the demos
 
-:warning:
-You probably need to turn off your VPN to avoid kafka network issues.
-
 ```shell
 ./mvnw spring-boot:run -pl kafka-producer-demo
 ```

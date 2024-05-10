@@ -2,6 +2,16 @@
 
 Demo setup for Spring Boot 3 with Prometheus, Grafana, Loki, and Tempo to demonstrate Observability use-cases.
 
+> [!NOTE]  
+> You must have Java 17 or latter and Maven 3 to run this project
+
+```shell
+brew install java
+```
+```shell
+brew install maven
+```
+
 ## Start infrastructure dependencies
 
 ```shell
@@ -22,6 +32,14 @@ docker compose -p observability down --volumes
 
 ## Start the demos
 
+> [!WARN]  
+> Before run the demos, you need to add kafka host to your /etc/hosts
+```shell
+sudo -- sh -c -e "echo '192.34.0.03   subdomain.domain.com' >> /etc/hosts";
+```
+
+Run forrest, run.
+
 ```shell
 ./mvnw spring-boot:run -pl kafka-producer-demo
 ```
@@ -29,6 +47,9 @@ docker compose -p observability down --volumes
 ```shell
 ./mvnw spring-boot:run -pl kafka-consumer-demo
 ```
+
+> [!NOTE]  
+> Take a look on [Makefile](https://github.com/building-resilient-microservices/observability/blob/main/Makefile), there are scripts to simulate latency, errors etc.
 
 ## Local Infrastrucure Services
 

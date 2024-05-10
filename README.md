@@ -32,10 +32,10 @@ docker compose -p observability down --volumes
 
 ## Start the demos
 
-> [!WARN]  
+> [!IMPORTANT]  
 > Before run the demos, you need to add kafka host to your /etc/hosts
 ```shell
-sudo -- sh -c -e "echo '192.34.0.03   subdomain.domain.com' >> /etc/hosts";
+sudo -- sh -c -e "echo '127.0.0.1   kafka' >> /etc/hosts";
 ```
 
 Run forrest, run.

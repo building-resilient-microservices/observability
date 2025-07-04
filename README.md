@@ -59,3 +59,10 @@ Run forrest, run.
 - MailDev (emails for alerts): http://localhost:3001
 - Adminer (DB Admin UI): http://localhost:8888 (credentials: `root:password`)
 - Kafka Drop: http://localhost:9000
+
+## TIPS
+You can filter specific metrics in URI
+
+```shell
+cURL -X GET 'http://localhost:8081/actuator/metrics/method.observed?tag=class:com.example.messaging.service.FactService&tag=method:read' | jq .
+```

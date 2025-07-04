@@ -12,7 +12,7 @@ class FactNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(FactNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String employeeNotFoundHandler(FactNotFoundException ex) {
+    String factNotFoundException(FactNotFoundException ex) {
         return ex.getMessage();
     }
 

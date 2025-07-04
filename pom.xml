@@ -71,11 +71,12 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-otel</artifactId>
         </dependency>
-        <!-- For Tracing Visualization -->
+        <!-- For Tracing Visualization
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-exporter-zipkin</artifactId>
         </dependency>
+        -->
         <!-- For pushing logs out -->
         <dependency>
             <groupId>com.github.loki4j</groupId>
